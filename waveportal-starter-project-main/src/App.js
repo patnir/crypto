@@ -139,6 +139,7 @@ export default function App() {
   };
 
   useEffect(() => {
+    checkIfWalletIsConnected();
     let wavePortalContract;
 
     const onNewWave = (from, timestamp, message) => {
@@ -176,11 +177,11 @@ export default function App() {
     <div className="mainContainer">
       <div className="dataContainer">
         <div className="header">
-          <span role="img">👋</span> Hey there!
+          <span role="img">🦄</span> Hey there!
         </div>
         <div className="bio">
           I am Patni and I'm a full tech crypto degen. Connect your Ethereum
-          wallet and wave at me!
+          wallet and 🦄 me!
         </div>
 
         <label>
@@ -194,7 +195,7 @@ export default function App() {
         </label>
         {!loading && (
           <button className="waveButton" onClick={wave}>
-            Wave at Me
+            🦄
           </button>
         )}
 
