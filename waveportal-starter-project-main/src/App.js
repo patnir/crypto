@@ -6,6 +6,7 @@ import abi from "./utils/WavePortal.json";
 export default function App() {
   const [currentAccount, setCurrentAccount] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const contractAddress = "0xf43c9599f7Bb8C88fC621dF7C094108a65e1a5e3";
   const contractABI = abi.abi;
   const [allWaves, setAllWaves] = useState([]);
@@ -20,6 +21,8 @@ export default function App() {
       } else {
         console.log("We have the ethereum object", ethereum);
       }
+
+      getAllWaves();
 
       const accounts = await ethereum.request({ method: "eth_accounts" });
 
@@ -87,6 +90,7 @@ export default function App() {
       const { ethereum } = window;
 
       if (ethereum) {
+        setLoading(true);
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
         const wavePortalContract = new ethers.Contract(
@@ -110,6 +114,10 @@ export default function App() {
 
         count = await wavePortalContract.getTotalWaves();
         console.log("Retrieved total wave count...", count.toNumber());
+
+        await getAllWaves();
+        setMessage("");
+        setLoading(false);
       } else {
         console.log("Ethereum object doesn't exist!");
       }
@@ -133,6 +141,7 @@ export default function App() {
 
       console.log("Connected", accounts[0]);
       setCurrentAccount(accounts[0]);
+      await getAllWaves();
     } catch (error) {
       console.log(error);
     }
@@ -140,7 +149,6 @@ export default function App() {
 
   useEffect(() => {
     checkIfWalletIsConnected();
-    getAllWaves();
   }, []);
 
   return (
@@ -163,9 +171,16 @@ export default function App() {
             onChange={(e) => setMessage(e.target.value)}
           />
         </label>
-        <button className="waveButton" onClick={wave}>
-          Wave at Me
-        </button>
+        {!loading && (
+          <button className="waveButton" onClick={wave}>
+            Wave at Me
+          </button>
+        )}
+
+        {loading && (
+          <div className="bio">Mining transaction, don't reload site.</div>
+        )}
+
         {!currentAccount && (
           <button className="waveButton" onClick={connectWallet}>
             Connect Wallet
