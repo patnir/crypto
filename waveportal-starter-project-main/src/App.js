@@ -3,6 +3,20 @@ import * as React from "react";
 import "./App.css";
 
 export default function App() {
+  const checkIfWalletIsConnected = () => {
+    const { ethereum } = window;
+    if (!ethereum) {
+      console.log("Make sure you have metamask!");
+      return;
+    } else {
+      console.log("we have the ethereum object", ethereum);
+    }
+  };
+
+  useEffect(() => {
+    checkIfWalletIsConnected();
+  }, []);
+
   const wave = () => {};
 
   return (
