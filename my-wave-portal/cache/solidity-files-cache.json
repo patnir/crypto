@@ -74,8 +74,8 @@
       ]
     },
     "/Users/test/Projects/crypto/my-wave-portal/contracts/WavePortal.sol": {
-      "lastModificationDate": 1637545648833,
-      "contentHash": "4d8696dd3adf38499e92e29ba748ed07",
+      "lastModificationDate": 1637612344129,
+      "contentHash": "fe62cf6a1f99766924e0d97d7260c9d3",
       "sourceName": "contracts/WavePortal.sol",
       "solcConfig": {
         "version": "0.8.0",
